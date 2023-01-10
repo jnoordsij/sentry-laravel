@@ -169,7 +169,7 @@ class SentryHandler extends AbstractProcessingHandler
      * {@inheritdoc}
      * @suppress PhanTypeMismatchArgument
      */
-    protected function write(array|LogRecord $record): void
+    protected function write(LogRecord $record): void
     {
         $exception = $record['context']['exception'] ?? null;
         $isException = $exception instanceof Throwable;
