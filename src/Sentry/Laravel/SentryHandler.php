@@ -3,7 +3,7 @@
 namespace Sentry\Laravel;
 
 use Monolog\DateTimeImmutable;
-use Monolog\Logger;
+use Monolog\Level;
 use Monolog\LogRecord;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Formatter\FormatterInterface;
@@ -59,7 +59,7 @@ class SentryHandler extends AbstractProcessingHandler
      * @param bool         $reportExceptions
      * @param bool         $useFormattedMessage
      */
-    public function __construct(HubInterface $hub, $level = Logger::DEBUG, bool $bubble = true, bool $reportExceptions = true, bool $useFormattedMessage = false)
+    public function __construct(HubInterface $hub, $level = Level::Debug, bool $bubble = true, bool $reportExceptions = true, bool $useFormattedMessage = false)
     {
         parent::__construct($level, $bubble);
 
@@ -148,18 +148,18 @@ class SentryHandler extends AbstractProcessingHandler
     protected function getLogLevel(int $logLevel): Severity
     {
         switch ($logLevel) {
-            case Logger::DEBUG:
+            case Level::Debug:
                 return Severity::debug();
-            case Logger::NOTICE:
-            case Logger::INFO:
+            case Level::Notice:
+            case Level::Info:
                 return Severity::info();
-            case Logger::WARNING:
+            case Level::Warning:
                 return Severity::warning();
-            case Logger::ALERT:
-            case Logger::EMERGENCY:
-            case Logger::CRITICAL:
+            case Level::Alert:
+            case Level::Emergency:
+            case Level::Critical:
                 return Severity::fatal();
-            case Logger::ERROR:
+            case Level::Error:
             default:
                 return Severity::error();
         }
